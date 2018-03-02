@@ -4,9 +4,9 @@ class Student extends Component {
   render() {
     return (
       <div>
-        <strong>Name:</strong>Ada
+        <strong>Name:</strong>{ this.props.name }
         <br />
-        <strong>E-mail:</strong>ada@ada.co
+        <strong>E-mail:</strong>{ this.props.email }
       </div>
     )
   }
