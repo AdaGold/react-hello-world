@@ -6,19 +6,14 @@ class StudentCollection extends Component {
   constructor() {
     super();
 
-    this.state = {
-      students: [
-        {
-          name: "State Ada",
-          email: "state-ada@ada.co"
-        },
-        {
-          name: "Cool",
-          email: "cool@ada.co"
-        }
-      ]
-    };
+    this.state = { students: [] }
   }
+
+  componentDidMount() {
+    console.log('IN COMPONENT DID MOUNT');
+    this.setState({students: fetchStudents() });
+  }
+
   render() {
     let studentComponents = this.state.students.map(function(student) {
       return <Student name={ student.name } email={ student.email }/>
@@ -32,5 +27,10 @@ class StudentCollection extends Component {
     )
   }
 }
-
 export default StudentCollection;
+
+const fetchStudents = () =>
+  ([
+    { name: "A Student", email: "4321@ada.org" },
+    { name: "B Student", email: "1234@ada.org" }
+  ]);
