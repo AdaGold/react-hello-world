@@ -47,21 +47,34 @@ class NewStudentForm extends Component {
     this.props.addStudent(student);
   }
 
+  nameValid = () => {
+    return this.state.name.length > 1;
+  }
+
+  emailValid = () => {
+    return this.state.email.match(/.+@+./);
+  }
+
+  formValid = () => {
+    return this.nameValid() && this.emailValid();
+  }
+
   render() {
     return (
       <div>
         <form className="new-student-form" onSubmit={this.submitHandler}>
           <label htmlFor="name">Name:</label>
-          <input className={ this.state.name.length > 1 ? "valid": "invalid" }
+          <input className={ this.nameValid() ? "valid": "invalid" }
             name="name"
             value={this.state.name}
             onChange={this.nameChange} />
           <label htmlFor="email">Email:</label>
-          <input className={ this.state.email.match(/.+(@).+/) ? "valid": "invalid" }
+          <input className={ this.emailValid() ? "valid": "invalid" }
             name="email" value={this.state.email}
             onChange={this.emailChange} />
 
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Submit"
+            disabled={this.formValid() ? false: true } />
         </form>
       </div>
     );
