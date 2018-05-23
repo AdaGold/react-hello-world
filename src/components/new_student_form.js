@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from './new_student_form.css';
+import  './new_student_form.css';
 import PropTypes from 'prop-types';
 
 class NewStudentForm extends Component {
@@ -38,13 +38,19 @@ class NewStudentForm extends Component {
 
   submitHandler = (event) => {
     event.preventDefault();
-    console.log('submitting');
-    const student = {
-      name: this.state.name,
-      email: this.state.email,
-    };
+    if (this.formValid()) {
+      console.log('submitting');
+      const student = {
+        name: this.state.name,
+        email: this.state.email,
+      };
+      this.props.addStudent(student);
+      this.setState({
+        name: '',
+        email: '',
+      });
+    }
 
-    this.props.addStudent(student);
   }
 
   nameValid = () => {
@@ -63,25 +69,25 @@ class NewStudentForm extends Component {
     return (
       <div>
         <form className="new-student-form" onSubmit={this.submitHandler}>
-          <label htmlFor="name">Name:</label>
-          <input className={ this.nameValid() ? "valid": "invalid" }
-            name="name"
-            value={this.state.name}
-            onChange={this.nameChange} />
-          <label htmlFor="email">Email:</label>
-          <input className={ this.emailValid() ? "valid": "invalid" }
-            name="email" value={this.state.email}
-            onChange={this.emailChange} />
-
-          <input type="submit" value="Submit"
+          <div>
+            <label htmlFor="name">Name:</label>
+            <input className={ this.nameValid() ? "valid": "invalid" }
+              name="name"
+              value={this.state.name}
+              onChange={this.nameChange} />
+          </div>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input className={ this.emailValid() ? "valid": "invalid" }
+              name="email" value={this.state.email}
+              onChange={this.emailChange} />
+          </div>
+          <input className="button success" type="submit" value="Submit"
             disabled={this.formValid() ? false: true } />
         </form>
       </div>
     );
   }
-
-
-
 }
 
 
