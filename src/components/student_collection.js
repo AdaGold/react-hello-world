@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Student from './student';
+import NewStudentForm from './new_student_form';
 
 class StudentCollection extends Component {
   constructor() {
@@ -16,15 +17,25 @@ class StudentCollection extends Component {
 
   render() {
     let studentComponents = this.state.students.map(function(student) {
-      return <Student name={ student.name } email={ student.email }/>
+      return <Student key={ student.name } name={ student.name } email={ student.email }/>
     });
 
     return (
       <div>
         <h3>Students</h3>
         { studentComponents }
+        <NewStudentForm addStudent={this.addStudent} />
       </div>
     )
+  }
+
+  addStudent = (student) => {
+    const students = this.state.students;
+
+    students.push(student);
+    this.setState({
+      students
+    });
   }
 }
 export default StudentCollection;
